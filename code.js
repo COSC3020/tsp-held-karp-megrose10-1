@@ -7,6 +7,28 @@ function tsp_hk(distance_matrix) {
     //Our memoization to keep track of distances we have calculated
     let savedDist = {};
 
+    //If there is one city, the distnace is 0
+    if(numOfCities <= 1) {
+        return 0;
+    }
+
+    //Check if the matrix is filled with zeros, so no distances
+    let noDistances = true;
+
+    for(let i = 0; i < numOfCities; i++) {
+        for(let j = 0; j < numOfCities; j++) {
+            if((i != j) && (distance_matrix[i][j] != 0)) {
+                noDistances = false;
+                break;
+            }
+        }
+        //If there are nodistances, return 0
+        if(noDistances) {
+            return 0;
+        }
+    }
+
+
     //Set every vertex in visited to false
     for(let i = 0; i < numOfCities; i++) {
         visited[i] = false;
