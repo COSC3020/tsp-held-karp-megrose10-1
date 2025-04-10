@@ -44,7 +44,8 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 I looked at lecture notes, and asked a question in class on what you suggested when
 starting this algorithm. I also went to the TA's office hours. Olivia and I talked about 
 what the algorithm was asking overall last semester.I also referenced my old dijkstra and 
-augmenting paths repositories.
+augmenting paths repositories. I also used the psuedocode when starting on the recursive 
+implementation.
 
 ## Runtime Analysis
 
