@@ -149,4 +149,3 @@ let dm = [
 console.log("Should be: 13");
 console.log("we got: " + tsp_hk(dm));
 
-
