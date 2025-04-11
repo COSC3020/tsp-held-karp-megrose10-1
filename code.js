@@ -5,8 +5,8 @@ function tsp_hk(distance_matrix) {
     let shortestTour = Infinity;
     let start = 0;
     //Our memoization to keep track of distances we have calculated
-    let savedDist = {};
-    let end = numOfCities - 1;
+    //let savedDist = {};
+    //let end = numOfCities - 1;
 
     //If there is one city, the distnace is 0
     if(numOfCities <= 1) {
@@ -30,16 +30,31 @@ function tsp_hk(distance_matrix) {
     }
 
 
-    //Set every vertex in visited to false
-    for(let i = 0; i < numOfCities; i++) {
-        visited[i] = false;
-    }
+    for(start; start < numOfCities; start++) {
+        //Set every vertex in visited to false
+        for(let i = 0; i < numOfCities; i++) {
+            visited[i] = false;
+        }
 
-    //Set start vertex to true
-    visited[start] = true;
+        //Set start vertex to true
+        visited[start] = true;
 
-    //Call heldKarpTSP to find best tour
-    shortestTour = heldKarpTSP(distance_matrix, visited, start, numOfCities, savedDist, end);
+        //Test ending of tour
+        for(let end =0; end < numOfCities; end++) {
+            if(end != start) {
+                //Memoization to track distances
+                let savedDist = {};
+                let tour = heldKarpTSP(distance_matrix, visited, start, numOfCities, savedDist, end);
+                console.log(tour);
+                console.log(savedDist);
+                //See if the recently computed tour is less cost than shortestTour, if so change value of shortest tour
+                if(tour < shortestTour) {
+                    shortestTour = tour;
+                }
+            } 
+        }
+
+    }       
 
     return shortestTour;
 
@@ -64,8 +79,7 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
         return savedDist[visitedAndCurrent];
     }
 
-    //If there is a city that has not been visited, visitedCities will be false
-    //since we have not gone through all cities
+    //If there is an unvisited city, add to amound of unvisited cities
     let visitedCities = true;
     let numOfUnvisitedCities = 0;
     for(let i = 0; i < numOfCities; i++) {
@@ -76,11 +90,12 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
         }
     }
 
+    //If there is one city left, check if it is the end 
     if(numOfUnvisitedCities == 1){
-        //Once all cities have been visited, return to start
         // if(visitedCities == true) {
         //     return cities[currentCity][end];
         // }
+        //If the end has not been visited, go to end
         if(!visited[end]) {
             return cities[currentCity][end];
         }
@@ -100,8 +115,9 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
     let min = Infinity;
 
     for(let nextCity = 0; nextCity < numOfCities; nextCity++) {
-        //If the city has not been visited
-        if(visited[nextCity] || ((nextCity == end) && (numOfUnvisitedCities < (numOfCities - 1)))) {
+        //If the city has already been visited, if the next city is the end even though
+        //there are unvisted cities
+        if(visited[nextCity] || ((nextCity == end) && (numOfUnvisitedCities > 1))) {
             continue;
         }
         //Will now be visited
@@ -122,3 +138,15 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
     return min;
 
 }
+
+let dm = [
+    [0,3,4,2,7],
+    [3,0,4,6,3],
+    [4,4,0,5,8],
+    [2,6,5,0,6],
+    [7,3,8,6,0]
+];
+console.log("Should be: 13");
+console.log("we got: " + tsp_hk(dm));
+
+
