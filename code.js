@@ -80,7 +80,7 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
             namesOfVisitedCities.push(i);
         }
     }
-    //Sort the names of visited cities
+    //Sort the names of visited cities 
     for(let i = 0; i < namesOfVisitedCities.length; i++) {
         for(let j = i + 1; j < namesOfVisitedCities.length; j++) {
             if(namesOfVisitedCities[i] > namesOfVisitedCities[j]) {
