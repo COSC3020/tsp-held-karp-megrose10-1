@@ -76,7 +76,7 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
     for(let i = 0; i < visited.length; i++) {
         //If city is visited
         if(visited[i]) {
-            //Push name to visited city
+            //Push index to visited city
             namesOfVisitedCities.push(i);
         }
     }
@@ -86,7 +86,7 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
             if(namesOfVisitedCities[i] > namesOfVisitedCities[j]) {
                 let tmp = namesOfVisitedCities[i];
                 namesOfVisitedCities[i] = namesOfVisitedCities[j];
-                namesOfVisitedCities = tmp;
+                namesOfVisitedCities[j] = tmp;
             }
         }
     }
