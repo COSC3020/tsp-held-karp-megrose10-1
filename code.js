@@ -71,7 +71,27 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
     //console.log("current city: " + currentCity);
 
     //Shows whether a city has been visited(true or false) and the current city we are looking at
-    let visitedAndCurrent = visited.join(', ') + ' city: ' + currentCity;
+    //Make sure city order does not matter
+    let namesOfVisitedCities = [];
+    for(let i = 0; i < visited.length; i++) {
+        //If city is visited
+        if(visited[i]) {
+            //Push name to visited city
+            namesOfVisitedCities.push(i);
+        }
+    }
+    //Sort the names of visited cities
+    for(let i = 0; i < namesOfVisitedCities.length; i++) {
+        for(let j = i + 1; j < namesOfVisitedCities.length; j++) {
+            if(namesOfVisitedCities[i] > namesOfVisitedCities[j]) {
+                let tmp = namesOfVisitedCities[i];
+                namesOfVisitedCities[i] = namesOfVisitedCities[j];
+                namesOfVisitedCities = tmp;
+            }
+        }
+    }
+    let visitedAndCurrent = namesOfVisitedCities.join(', ') + ' city: ' + currentCity;
+    //let visitedAndCurrent = visited.join(', ') + ' city: ' + currentCity;
     //console.log(visitedAndCurrent);
 
     //If it is not undefined, the distance has been found so return the distance weight
