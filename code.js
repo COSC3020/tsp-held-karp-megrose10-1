@@ -45,8 +45,6 @@ function tsp_hk(distance_matrix) {
                 //Memoization to track distances
                 let savedDist = {};
                 let tour = heldKarpTSP(distance_matrix, visited, start, numOfCities, savedDist, end);
-                console.log(tour);
-                console.log(savedDist);
                 //See if the recently computed tour is less cost than shortestTour, if so change value of shortest tour
                 if(tour < shortestTour) {
                     shortestTour = tour;
@@ -72,25 +70,7 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
 
     //Shows whether a city has been visited(true or false) and the current city we are looking at
     //Make sure city order does not matter
-    let namesOfVisitedCities = [];
-    for(let i = 0; i < visited.length; i++) {
-        //If city is visited
-        if(visited[i]) {
-            //Push index to visited city
-            namesOfVisitedCities.push(i);
-        }
-    }
-    //Sort the names of visited cities
-    for(let i = 0; i < namesOfVisitedCities.length; i++) {
-        for(let j = i + 1; j < namesOfVisitedCities.length; j++) {
-            if(namesOfVisitedCities[i] > namesOfVisitedCities[j]) {
-                let tmp = namesOfVisitedCities[i];
-                namesOfVisitedCities[i] = namesOfVisitedCities[j];
-                namesOfVisitedCities[j] = tmp;
-            }
-        }
-    }
-    let visitedAndCurrent = namesOfVisitedCities.join(', ') + ' city: ' + currentCity;
+    let visitedAndCurrent = visited.sort().join(', ') + ' city: ' + currentCity;
     //let visitedAndCurrent = visited.join(', ') + ' city: ' + currentCity;
     //console.log(visitedAndCurrent);
 
@@ -158,14 +138,3 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
     return min;
 
 }
-
-let dm = [
-    [0,3,4,2,7],
-    [3,0,4,6,3],
-    [4,4,0,5,8],
-    [2,6,5,0,6],
-    [7,3,8,6,0]
-];
-console.log("Should be: 13");
-console.log("we got: " + tsp_hk(dm));
-
