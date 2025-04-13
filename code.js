@@ -70,7 +70,16 @@ function heldKarpTSP(cities, visited, currentCity, numOfCities, savedDist, end) 
 
     //Shows whether a city has been visited(true or false) and the current city we are looking at
     //Make sure city order does not matter
-    let visitedAndCurrent = visited.sort().join(', ') + ' city: ' + currentCity;
+    let namesOfVisitedCities = [];
+    for(let i = 0; i < visited.length; i++) {
+        //If city is visited
+        if(visited[i]) {
+            //Push index to visited city
+            namesOfVisitedCities.push(i);
+        }
+    }
+    //Sort the names of visited cities
+    let visitedAndCurrent = namesOfVisitedCities.sort().join(', ') + ' city: ' + currentCity;
     //let visitedAndCurrent = visited.join(', ') + ' city: ' + currentCity;
     //console.log(visitedAndCurrent);
 
