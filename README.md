@@ -41,7 +41,7 @@ returns the length of the shortest tour (not the tour itself).
 
 Test your new function; I've provided some basic testing code in `code.test.js`.
 
-I looked at lecture notes, and asked a question in class on what you suggested when
+I looked at lecture notes(including slides), and asked a question in class on what you suggested when
 starting this algorithm. I also went to the TA's office hours. Olivia and I talked about 
 what the algorithm was asking overall last semester.I also referenced my old dijkstra and 
 augmenting paths repositories. I also used the psuedocode when starting on the recursive 
@@ -52,3 +52,7 @@ implementation.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+At the start of the algorithm, we check if the given matrix is filled with zeros, meaning the shortest tour would be 0. We do this using nested loops over all vertices, taking O(v^2) time. Next, we go into another set of nested loops. In these loops, for every start city we go over all possible end cities besides the start which would be O(v^2) (so far). In the inner loop, we call heldKarpTSP which looks at the subsets of the cities. Since each city will be visited or unvisited, the number of subsets will be 2^v. We track this with the current city so, O(2^v *v). We also want to make sure that the order the cities are visited does not matter, so we sort this list, making the total recursion (including the nested for loops that call this function), O(v^5 * 2^v). So this all, excluding constant factors will be O(v^2 + v^5 * 2^v), which simplifies to a worst-case time complexity of O(v^5 * 2^v). While other for loops were not added, this is because the complexity given will grow exponentially, and most of those for loops will not add enough time to significantly affect the overall time complexity. 
+
+Since we are using memoization, we are storing the subsets of cities, which takes up memory. So looking at the important memory takers, the distance matrix given at the beginning will take O(v^2) space. The visited array will take up O(v). The cities list, which will also be O(v), and the memoization object(savedDist) which will take O(2^v *v). This overall will be O(v^2 + v + v + (2^v * v)), which simplifies to O(2^v * v).
